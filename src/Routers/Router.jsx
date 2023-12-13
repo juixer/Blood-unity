@@ -3,6 +3,7 @@ import Root from "../Layout/Root";
 import Home from "../Pages/Home/Home";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import DonationRequest from "../Pages/DonationRequest/DonationRequest";
+import RequestInfo from "../Pages/RequestInfo/RequestInfo";
 
 const Router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const Router = createBrowserRouter([
       {
         path:'/donationRequest',
         element: <DonationRequest/>
+      },
+      {
+        path: '/details',
+        element: <RequestInfo/>
       }
     ],
   },

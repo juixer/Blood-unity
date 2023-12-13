@@ -2,6 +2,7 @@ import axios from "axios";
 import Container from "../../Shared/COntainer/Container";
 import Select from "react-select";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const DonationRequest = () => {
   const [reqs, setReqs] = useState([]);
   axios.get("fakeReq.json").then((res) => {
@@ -115,6 +116,7 @@ const DonationRequest = () => {
                     <th>#</th>
                     <th>Requester Name</th>
                     <th>Type</th>
+                    <th>District</th>
                     <th>Location</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -129,12 +131,15 @@ const DonationRequest = () => {
                         <td>{req.requesterName}</td>
                         <td>{req.type}</td>
                         <td>{req.location}</td>
+                        <td>{req.location}</td>
                         <td>{req.date}</td>
                         <td>{req.time}</td>
                         <td>
-                          <button className="btn bg-sky-600 text-white hover:bg-sky-800 glass">
-                            View Details
-                          </button>
+                          <Link to={'/details'}>
+                            <button className="btn bg-sky-600 text-white hover:bg-sky-800 glass">
+                              View Details
+                            </button>
+                          </Link>
                         </td>
                       </tr>
                     );
