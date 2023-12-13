@@ -20,10 +20,10 @@ const Banner = () => {
           </p>
           <div className="flex justify-center items-center gap-5 flex-col md:flex-row">
             <button className="btn glass text-white bg-emerald-800 hover:bg-black">
-              Join as a donor
+              Join as a Donor
             </button>
             <button className="btn glass text-white bg-cyan-800 hover:bg-black">
-              Search Donar
+              Search Donor
             </button>
           </div>
         </div>

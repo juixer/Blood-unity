@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Nav = () => {
   const navLinks = (
@@ -19,7 +19,7 @@ const Nav = () => {
         <NavLink to={"/funding"}>Funding</NavLink>
       </li>
       <li>
-        <NavLink to={"/login"}>Log In</NavLink>
+        <Link to={"/login"}><button className="btn glass btn-sm text-white bg-emerald-800">Log In</button></Link>
       </li>
     </>
   );
@@ -52,13 +52,13 @@ const Nav = () => {
           </div>
           <div className="flex-1 px-2 mx-2">
             <NavLink to={'/'}>
-              <img src="https://i.ibb.co/4NnW0BM/logo.png" className="w-36" />
+              <img src="https://i.ibb.co/4NnW0BM/logo.png" className="w-28" />
             </NavLink>
           </div>
           <div className="flex-none hidden lg:block">
             <ul
               id="sidebar"
-              className="menu text-white space-x-3 menu-horizontal text-xl font-semibold"
+              className="menu text-white space-x-3 menu-horizontal text-lg font-semibold"
             >
               {navLinks}
             </ul>
