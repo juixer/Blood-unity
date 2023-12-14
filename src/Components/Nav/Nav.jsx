@@ -19,7 +19,7 @@ const Nav = () => {
         <NavLink to={"/funding"}>Funding</NavLink>
       </li>
       <li>
-        <Link to={"/login"}><button className="btn glass btn-sm text-white bg-emerald-800">Log In</button></Link>
+        <Link to={"/login"}><button className="btn glass btn-sm text-white bg-emerald-600 hover:bg-emerald-800">Log In</button></Link>
       </li>
     </>
   );

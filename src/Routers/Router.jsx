@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import DonationRequest from "../Pages/DonationRequest/DonationRequest";
 import RequestInfo from "../Pages/RequestInfo/RequestInfo";
+import Login from "../Pages/Login/Login";
 
 const Router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const Router = createBrowserRouter([
       {
         path: '/details',
         element: <RequestInfo/>
+      },
+      {
+        path: '/login',
+        element: <Login/>
       }
     ],
   },
