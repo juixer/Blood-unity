@@ -46,11 +46,7 @@ const RequestInfo = () => {
                   <span className="font-bold">Donate Time:</span> 12:00AM
                 </h1>
                 <p className="text-xl">
-                  <span className="font-bold">Requester Message:</span>Lorem
-                  ipsum dolor sit amet consectetur, adipisicing elit. Fugiat
-                  iure rem commodi, culpa repudiandae voluptates nihil
-                  accusantium quidem autem ipsam corrupti, corporis cum beatae
-                  nesciunt. Est error dicta sunt velit.
+                  <span className="font-bold">Requester Message:</span>যদি আপনি কেউ আপনার লক্ষ্যে পৌঁছাতে চান তবে সঠিক দিকে চলুন, আর কেবল একটি পদক্ষেপ নিন সঠিক দিকে।
                 </p>
               </div>
               <button className="btn glass mt-5 bg-emerald-600 w-full hover:bg-emerald-800 text-white">
