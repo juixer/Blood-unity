@@ -3,11 +3,12 @@ import Container from "../../Shared/COntainer/Container";
 import loginAni from "../../assets/loginANi.json";
 import { FaEnvelope, FaLock } from "react-icons/fa6";
 import SocialLogin from "../../Shared/Social Login/SocialLogin";
+import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div>
       <Container>
-        <div className="flex flex-col md:flex-row gap-5 items-center justify-center">
+        <div className="flex flex-col md:flex-row gap-5 items-center justify-center p-5 shadow-2xl rounded-xl">
           <div className="w-full">
             <Lottie animationData={loginAni} loop={true} />
           </div>
@@ -17,7 +18,7 @@ const Login = () => {
               <div>
                 <h4 className="font-semibold">Email</h4>
                 <div className="relative">
-                  <FaEnvelope className=" absolute left-3 top-4 text-xl"/>
+                  <FaEnvelope className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="email"
                     placeholder="Type your email here"
@@ -29,7 +30,7 @@ const Login = () => {
               <div>
                 <h4 className="font-semibold">Password</h4>
                 <div className="relative">
-                  <FaLock className=" absolute left-3 top-4 text-xl"/>
+                  <FaLock className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="password"
                     placeholder="Type your password here"
@@ -38,12 +39,21 @@ const Login = () => {
                 </div>
               </div>
 
-              <button className="btn glass bg-emerald-600 w-full hover:bg-emerald-800 text-white font-semibold">Log In</button>
+              <button className="btn glass bg-emerald-600 w-full hover:bg-emerald-800 text-white font-semibold">
+                Log In
+              </button>
             </form>
-            <p className="mt-5 text-xl">Do not have an account?<span className="ml-3 text-emerald-600 font-bold">Create an account</span></p>
+            <p className="mt-5 text-xl">
+              Do not have an account?
+              <Link to={"/register"}>
+                <span className="ml-3 text-emerald-600 font-bold hover:underline">
+                  Create an account
+                </span>
+              </Link>
+            </p>
             <div className="divider"></div>
             <p className="text-center text-3xl font-bold">Login with</p>
-            <SocialLogin/>
+            <SocialLogin />
           </div>
         </div>
       </Container>
