@@ -4,8 +4,17 @@ import { FaEnvelope, FaLock, FaUser } from "react-icons/fa6";
 import Lottie from "lottie-react";
 import registerAni from "../../assets/registerAni.json";
 import Select from "react-select";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const Register = () => {
+  const [bloodType, setBloodType] = useState("");
+  const [district, setDistrict] = useState("");
+  const { signUp, updateUser } = useAuth();
+
   const districts = [
     { value: "Comilla", label: "Comilla" },
     { value: "Feni", label: "Feni" },
@@ -83,33 +92,98 @@ const Register = () => {
     { value: "O-", label: "O-" },
   ];
 
+  const handleBloodType = (selectedOption) => {
+    setBloodType(selectedOption.value);
+  };
+
+  const handleDistrict = (selectedOption) => {
+    setDistrict(selectedOption.value);
+  };
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    const imgFile = { image: data.photo[0] };
+    const imgRes = await axiosPublic.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBAPI}`,
+      imgFile,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    if (imgRes.data.success) {
+      const email = data.email;
+      const password = data.password;
+      const name = data.name;
+      const image = imgRes.data.data.url;
+      signUp(email, password)
+        .then(() => {
+          updateUser(name, image)
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Account Created Successfully",
+                showConfirmButton: false,
+                timer: 2500,
+              });
+            })
+            .catch((err) => {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `${err.message}`,
+                showConfirmButton: false,
+                timer: 2500,
+              });
+            });
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `${err.message}`,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        });
+    }
+  };
   return (
     <div>
       <Container>
         <h1 className="text-5xl font-bold text-center">Register</h1>
-        <div className="flex flex-col md:flex-row-reverse gap-5 items-center shadow-red-300 justify-center p-5 shadow-2xl rounded-xl">
+        <div className="flex flex-col md:flex-row-reverse mt-5 gap-5 items-center shadow-red-300 justify-center p-5 shadow-2xl rounded-xl">
           <div className="w-full">
             <Lottie animationData={registerAni} loop={true} />
           </div>
           <div className="w-full">
-            <form className="mt-5 space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
               <div>
-                <h4 className="font-semibold">Name</h4>
+                <h4 className="font-semibold">
+                  Name<span className="font-bold text-red-500">*</span>
+                </h4>
                 <div className="relative">
                   <FaUser className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="text"
+                    required
+                    {...register("name")}
                     placeholder="Type your Name here"
                     className="input input-bordered pl-10 w-full"
                   />
                 </div>
               </div>
               <div>
-                <h4 className="font-semibold">Email</h4>
+                <h4 className="font-semibold">
+                  Email<span className="font-bold text-red-500">*</span>
+                </h4>
                 <div className="relative">
                   <FaEnvelope className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="email"
+                    required
+                    {...register("email")}
                     placeholder="Type your email here"
                     className="input input-bordered pl-10 w-full"
                   />
@@ -117,40 +191,68 @@ const Register = () => {
               </div>
 
               <div>
-                <h4 className="font-semibold">Profile Picture</h4>
+                <h4 className="font-semibold">
+                  Profile Picture
+                  <span className="font-bold text-red-500">*</span>
+                </h4>
                 <input
                   type="file"
+                  required
+                  {...register("photo")}
                   className="file-input file-input-bordered file-input-error w-full"
                 />
               </div>
 
               <div>
-                <h4 className="font-semibold">Blood Type</h4>
-                <Select options={bloodTypes} />
+                <h4 className="font-semibold">
+                  Blood Type<span className="font-bold text-red-500">*</span>
+                </h4>
+                <Select
+                  name="blood"
+                  onChange={handleBloodType}
+                  required
+                  options={bloodTypes}
+                />
               </div>
 
               <div>
-                <h4 className="font-semibold">District</h4>
-                <Select options={districts} />
+                <h4 className="font-semibold">
+                  District<span className="font-bold text-red-500">*</span>
+                </h4>
+                <Select
+                  required
+                  name="district"
+                  onChange={handleDistrict}
+                  options={districts}
+                />
               </div>
 
               <div>
-                <h4 className="font-semibold">Password</h4>
+                <h4 className="font-semibold">
+                  Password<span className="font-bold text-red-500">*</span>
+                </h4>
                 <div className="relative">
                   <FaLock className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="password"
+                    required
+                    {...register("password")}
                     placeholder="Type your password here"
                     className="input input-bordered pl-10 w-full"
                   />
                 </div>
               </div>
               <div>
-                <h4 className="font-semibold">Confirm Password</h4>
+                <h4 className="font-semibold">
+                  Confirm Password
+                  <span className="font-bold text-red-500">*</span>
+                </h4>
                 <div className="relative">
                   <FaLock className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="password"
+                    required
+                    {...register("confirm")}
                     placeholder="Type confirm password here"
                     className="input input-bordered pl-10 w-full"
                   />

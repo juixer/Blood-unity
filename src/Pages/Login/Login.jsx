@@ -8,7 +8,7 @@ const Login = () => {
     <div>
       <Container>
         <h1 className="text-5xl font-bold text-center">Login</h1>
-        <div className="flex flex-col md:flex-row gap-5 items-center justify-center p-5 shadow-2xl shadow-red-300 rounded-xl">
+        <div className="flex flex-col mt-5 md:flex-row gap-5 items-center justify-center p-5 shadow-2xl shadow-red-300 rounded-xl">
           <div className="w-full">
             <Lottie animationData={loginAni} loop={true} />
           </div>

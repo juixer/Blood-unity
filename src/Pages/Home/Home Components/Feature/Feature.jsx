@@ -25,7 +25,8 @@ const Feature = () => {
               <div className="card-body">
                 <h2 className="card-title">{blog.title}</h2>
                 <p>{blog.content.slice(0, 110)}.....</p>
-                <div className="card-actions justify-end">
+                <div className="card-actions mt-2 items-center justify-around">
+                  <p className="text-sm text-slate-400">Published: 10-30-2023</p>
                   <button className="btn glass bg-red-500 text-lg hover:bg-red-800 text-white">Read More</button>
                 </div>
               </div>

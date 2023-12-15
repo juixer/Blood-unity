@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
 
 const Nav = () => {
+  const { user } = useAuth();
   const navLinks = (
     <>
       <li>
@@ -18,13 +20,45 @@ const Nav = () => {
       <li>
         <NavLink to={"/funding"}>Funding</NavLink>
       </li>
-      <li>
-        <Link to={"/login"}><button className="btn glass btn-sm text-white bg-red-500 hover:bg-red-800">Log In</button></Link>
-      </li>
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img alt={user?.displayName} src={user.photoURL} />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content text-black bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <p className="justify-between">{user?.displayName}</p>
+                <hr/>
+                <p className="justify-between">{user?.email}</p>
+              </li>
+              <hr/>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <li>
+            <Link to={"/login"}>
+              <button className="btn glass btn-sm text-white bg-red-500 hover:bg-red-800">
+                Log In
+              </button>
+            </Link>
+          </li>
+        )}
     </>
   );
   return (
-    <div className="drawer bg-black bg-opacity-60 fixed z-50">
+    <div className="drawer bg-black bg-opacity-50 fixed z-50">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
@@ -51,7 +85,7 @@ const Nav = () => {
             </label>
           </div>
           <div className="flex-1 px-2 mx-2">
-            <NavLink to={'/'}>
+            <NavLink to={"/"}>
               <img src="https://i.ibb.co/4NnW0BM/logo.png" className="w-28" />
             </NavLink>
           </div>
@@ -71,7 +105,7 @@ const Nav = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200">{navLinks}</ul>
+        <ul className="menu p-4 w-72 min-h-full bg-base-200">{navLinks}</ul>
       </div>
     </div>
   );
