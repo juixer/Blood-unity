@@ -9,7 +9,7 @@ const RequestInfo = () => {
           className="hero rounded-xl"
           style={{
             backgroundImage:
-              "url(https://i.ibb.co/Xs78L81/detailgif.gif)",
+              "url(https://i.ibb.co/4dM53tw/details.gif)",
           }}
         >
           <div className="hero-overlay bg-opacity-70 rounded-xl"></div>
@@ -49,7 +49,7 @@ const RequestInfo = () => {
                   <span className="font-bold">Requester Message:</span>যদি আপনি কেউ আপনার লক্ষ্যে পৌঁছাতে চান তবে সঠিক দিকে চলুন, আর কেবল একটি পদক্ষেপ নিন সঠিক দিকে।
                 </p>
               </div>
-              <button className="btn glass mt-5 bg-emerald-600 w-full hover:bg-emerald-800 text-white">
+              <button className="btn glass mt-5 bg-red-500 w-full hover:bg-red-800 text-white">
                 Donate
               </button>
             </div>

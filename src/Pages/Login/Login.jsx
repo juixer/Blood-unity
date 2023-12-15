@@ -2,18 +2,17 @@ import Lottie from "lottie-react";
 import Container from "../../Shared/COntainer/Container";
 import loginAni from "../../assets/loginANi.json";
 import { FaEnvelope, FaLock } from "react-icons/fa6";
-import SocialLogin from "../../Shared/Social Login/SocialLogin";
 import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div>
       <Container>
-        <div className="flex flex-col md:flex-row gap-5 items-center justify-center p-5 shadow-2xl rounded-xl">
+        <h1 className="text-5xl font-bold text-center">Login</h1>
+        <div className="flex flex-col md:flex-row gap-5 items-center justify-center p-5 shadow-2xl shadow-red-300 rounded-xl">
           <div className="w-full">
             <Lottie animationData={loginAni} loop={true} />
           </div>
           <div className="w-full">
-            <h1 className="text-5xl font-bold text-center">Login</h1>
             <form className="mt-5 space-y-5">
               <div>
                 <h4 className="font-semibold">Email</h4>
@@ -39,7 +38,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <button className="btn glass bg-emerald-600 w-full hover:bg-emerald-800 text-white font-semibold">
+              <button className="btn glass bg-red-500 w-full hover:bg-red-800 text-white font-semibold">
                 Log In
               </button>
             </form>
@@ -51,9 +50,6 @@ const Login = () => {
                 </span>
               </Link>
             </p>
-            <div className="divider"></div>
-            <p className="text-center text-3xl font-bold">Login with</p>
-            <SocialLogin />
           </div>
         </div>
       </Container>

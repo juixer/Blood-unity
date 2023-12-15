@@ -98,7 +98,7 @@ const DonationRequest = () => {
                 <p className="font-semibold text-lg">Location</p>
                 <Select options={districts} />
               </div>
-              <button className="btn bg-emerald-600 hover:bg-emerald-800 w-full text-white glass">
+              <button className="btn bg-red-500 hover:bg-red-800 w-full text-white glass">
                 Filter
               </button>
             </form>

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Container from "../../Shared/COntainer/Container";
-import SocialLogin from "../../Shared/Social Login/SocialLogin";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa6";
 import Lottie from "lottie-react";
 import registerAni from "../../assets/registerAni.json";
@@ -87,12 +86,12 @@ const Register = () => {
   return (
     <div>
       <Container>
-        <div className="flex flex-col md:flex-row gap-5 items-center justify-center p-5 shadow-2xl rounded-xl">
+        <h1 className="text-5xl font-bold text-center">Register</h1>
+        <div className="flex flex-col md:flex-row-reverse gap-5 items-center shadow-red-300 justify-center p-5 shadow-2xl rounded-xl">
           <div className="w-full">
             <Lottie animationData={registerAni} loop={true} />
           </div>
           <div className="w-full">
-            <h1 className="text-5xl font-bold text-center">Register</h1>
             <form className="mt-5 space-y-5">
               <div>
                 <h4 className="font-semibold">Name</h4>
@@ -121,7 +120,7 @@ const Register = () => {
                 <h4 className="font-semibold">Profile Picture</h4>
                 <input
                   type="file"
-                  className="file-input file-input-bordered file-input-success w-full"
+                  className="file-input file-input-bordered file-input-error w-full"
                 />
               </div>
 
@@ -158,7 +157,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <button className="btn glass bg-emerald-600 w-full hover:bg-emerald-800 text-white font-semibold">
+              <button className="btn glass bg-red-500 w-full hover:bg-red-800 text-white font-semibold">
                 Register
               </button>
             </form>
@@ -170,9 +169,6 @@ const Register = () => {
                 </span>
               </Link>
             </p>
-            <div className="divider"></div>
-            <p className="text-center text-3xl font-bold">Sign Up with</p>
-            <SocialLogin />
           </div>
         </div>
       </Container>

@@ -3,7 +3,7 @@ const Banner = () => {
     <div
       className="hero rounded-xl "
       style={{
-        backgroundImage: "url(https://i.ibb.co/HNdFxT2/Banner.png)",
+        backgroundImage: "url(https://i.ibb.co/vYDJ8s7/detailsgif.gif)",
       }}
     >
       <div className="hero-overlay  bg-black rounded-xl bg-opacity-70"></div>
@@ -19,10 +19,10 @@ const Banner = () => {
             every drop you give becomes a lifeline for someone in need.
           </p>
           <div className="flex justify-center items-center gap-5 flex-col md:flex-row">
-            <button className="btn glass text-white bg-emerald-800 hover:bg-black">
+            <button className="btn glass text-white bg-red-500  hover:bg-red-800">
               Join as a Donor
             </button>
-            <button className="btn glass text-white bg-cyan-800 hover:bg-black">
+            <button className="btn glass text-white bg-cyan-600 hover:bg-cyan-800">
               Search Donor
             </button>
           </div>
