@@ -1,8 +1,31 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const Nav = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+
+  const handleSignOut = () => {
+      logout()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged out",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      });
+  }
   const navLinks = (
     <>
       <li>
@@ -42,7 +65,7 @@ const Nav = () => {
               </li>
               <hr/>
               <li>
-                <a>Logout</a>
+                <a onClick={handleSignOut}>Logout</a>
               </li>
             </ul>
           </div>

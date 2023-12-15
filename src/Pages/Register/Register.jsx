@@ -100,53 +100,69 @@ const Register = () => {
     setDistrict(selectedOption.value);
   };
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
-    const imgFile = { image: data.photo[0] };
-    const imgRes = await axiosPublic.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBAPI}`,
-      imgFile,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    );
-    if (imgRes.data.success) {
-      const email = data.email;
-      const password = data.password;
-      const name = data.name;
-      const image = imgRes.data.data.url;
-      signUp(email, password)
-        .then(() => {
-          updateUser(name, image)
-            .then(() => {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Account Created Successfully",
-                showConfirmButton: false,
-                timer: 2500,
+    const email = data.email;
+    const password = data.password;
+    const confirm = data.confirm;
+    const name = data.name;
+
+    if (password !== confirm) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: `Password dose not matched`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    } else {
+      const imgFile = { image: data.photo[0] };
+      const imgRes = await axiosPublic.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBAPI}`,
+        imgFile,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      if (imgRes.data.success) {
+        const image = imgRes.data.data.url;
+        signUp(email, password)
+          .then(() => {
+            updateUser(name, image)
+              .then(() => {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Account Created Successfully",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+              })
+              .catch((err) => {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: `${err.message}`,
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
               });
-            })
-            .catch((err) => {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: `${err.message}`,
-                showConfirmButton: false,
-                timer: 2500,
-              });
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: `${err.message}`,
+              showConfirmButton: false,
+              timer: 2500,
             });
-        })
-        .catch((err) => {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: `${err.message}`,
-            showConfirmButton: false,
-            timer: 2500,
           });
-        });
+      }
     }
   };
   return (
@@ -236,10 +252,22 @@ const Register = () => {
                   <input
                     type="password"
                     required
-                    {...register("password")}
+                    {...register("password", {
+                      pattern: {
+                        value:
+                          /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d).{8,}$/,
+                        message: "Password must meet the specified criteria",
+                      },
+                    })}
                     placeholder="Type your password here"
                     className="input input-bordered pl-10 w-full"
                   />
+                  <span className="text-gray-500 text-justify">
+                    Please Provide atleast 8 characters, 1 uppercase letter, 1
+                    special character, and 1 number.
+                  </span>
+                  <br />
+                  {errors.password && <span className="text-red-500 font-semibold">{errors.password.message}</span>}
                 </div>
               </div>
               <div>
