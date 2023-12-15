@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../../Shared/COntainer/Container";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa6";
 import Lottie from "lottie-react";
@@ -13,7 +13,9 @@ import Swal from "sweetalert2";
 const Register = () => {
   const [bloodType, setBloodType] = useState("");
   const [district, setDistrict] = useState("");
+  const [clicked, setClicked] = useState(false);
   const { signUp, updateUser } = useAuth();
+  const navigate = useNavigate()
 
   const districts = [
     { value: "Comilla", label: "Comilla" },
@@ -107,6 +109,7 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setClicked(true);
     const email = data.email;
     const password = data.password;
     const confirm = data.confirm;
@@ -133,6 +136,17 @@ const Register = () => {
         const image = imgRes.data.data.url;
         signUp(email, password)
           .then(() => {
+
+            const userInfo = {
+              name,
+              email,
+              bloodType,
+              district
+            }
+            axiosPublic.post('/users',userInfo)
+            .then(res => {
+              console.log(res.data);
+            })
             updateUser(name, image)
               .then(() => {
                 Swal.fire({
@@ -142,6 +156,8 @@ const Register = () => {
                   showConfirmButton: false,
                   timer: 2500,
                 });
+                setClicked(false)
+                navigate('/')
               })
               .catch((err) => {
                 Swal.fire({
@@ -262,8 +278,8 @@ const Register = () => {
                     placeholder="Type your password here"
                     className="input input-bordered pl-10 w-full"
                   />
-                  <span className="text-gray-500 text-justify">
-                    Please Provide atleast 8 characters, 1 uppercase letter, 1
+                  <span className="text-gray-500 text-sm ml-2">
+                    Please provide atleast 8 characters, 1 uppercase letter, 1
                     special character, and 1 number.
                   </span>
                   <br />
@@ -287,7 +303,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <button className="btn glass bg-red-500 w-full hover:bg-red-800 text-white font-semibold">
+              <button disabled={clicked} className="btn glass bg-red-500 w-full hover:bg-red-800 text-white font-semibold">
                 Register
               </button>
             </form>

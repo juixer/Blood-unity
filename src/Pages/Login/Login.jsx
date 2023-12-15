@@ -2,8 +2,44 @@ import Lottie from "lottie-react";
 import Container from "../../Shared/COntainer/Container";
 import loginAni from "../../assets/loginANi.json";
 import { FaEnvelope, FaLock } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 const Login = () => {
+  const {signIn} = useAuth();
+  const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+  } = useForm()
+
+  const onSubmit = (data) => {
+      const email = data.email;
+      const password = data.password;
+
+      signIn(email, password)
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged in successfully",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        navigate('/')
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      });
+
+  }
   return (
     <div>
       <Container>
@@ -13,13 +49,15 @@ const Login = () => {
             <Lottie animationData={loginAni} loop={true} />
           </div>
           <div className="w-full">
-            <form className="mt-5 space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-5">
               <div>
                 <h4 className="font-semibold">Email</h4>
                 <div className="relative">
                   <FaEnvelope className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="email"
+                    required
+                    {...register('email')}
                     placeholder="Type your email here"
                     className="input input-bordered pl-10 w-full"
                   />
@@ -32,6 +70,8 @@ const Login = () => {
                   <FaLock className=" absolute left-3 top-4 text-xl" />
                   <input
                     type="password"
+                    required
+                    {...register('password')}
                     placeholder="Type your password here"
                     className="input input-bordered pl-10 w-full"
                   />
