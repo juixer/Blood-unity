@@ -109,7 +109,6 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setClicked(true);
     const email = data.email;
     const password = data.password;
     const confirm = data.confirm;
@@ -124,6 +123,7 @@ const Register = () => {
         timer: 2500,
       });
     } else {
+      setClicked(true);
       const imgFile = { image: data.photo[0] };
       const imgRes = await axiosPublic.post(
         `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBAPI}`,
@@ -141,7 +141,9 @@ const Register = () => {
               name,
               email,
               bloodType,
-              district
+              district,
+              status : "active",
+              role: 'donor',
             }
             axiosPublic.post('/users',userInfo)
             .then(res => {
