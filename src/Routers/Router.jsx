@@ -9,6 +9,7 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import DashRoot from "../Layout/DashRoot";
 import DashboardHome from "../Pages/DashBoardHome/DashboardHome";
+import DonorDash from "../Pages/DonorDash/DashBoard/DonorDash";
 
 const Router = createBrowserRouter([
   {
@@ -45,12 +46,21 @@ const Router = createBrowserRouter([
         <DashRoot />
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/dashboard/",
         element: (
           <PrivateRoute>
             <DashboardHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/donorDashboard",
+        element: (
+          <PrivateRoute>
+            <DonorDash />
           </PrivateRoute>
         ),
       },

@@ -26,6 +26,11 @@ const Nav = () => {
         });
       });
   }
+
+  const userRole = {
+    // admin: "admin",
+    donor: "donor",
+  };
   const navLinks = (
     <>
       <li>
@@ -37,9 +42,8 @@ const Nav = () => {
       <li>
         <NavLink to={"/blogs"}>Blogs</NavLink>
       </li>
-      <li>
-        <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      </li>
+      {userRole.donor && <li><NavLink to={"/dashboard/donorDashboard"}>Dashboard</NavLink></li>}
+      {userRole.admin && <li><NavLink to={"/dashboard/"}>Dashboard</NavLink></li>}
       <li>
         <NavLink to={"/funding"}>Funding</NavLink>
       </li>

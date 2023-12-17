@@ -1,7 +1,7 @@
 const Banner = () => {
   return (
     <div
-      className="hero rounded-xl "
+      className="hero rounded-xl bg-fixed"
       style={{
         backgroundImage: "url(https://i.ibb.co/vYDJ8s7/detailsgif.gif)",
       }}
