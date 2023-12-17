@@ -117,7 +117,7 @@ const DonationRequest = () => {
                     <th>Requester Name</th>
                     <th>Type</th>
                     <th>District</th>
-                    <th>Location</th>
+                    <th>Full Address</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>View</th>
