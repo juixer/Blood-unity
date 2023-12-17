@@ -6,7 +6,7 @@ const DonorRequest = () => {
     <div className="mt-10">
       <h1 className="text-5xl font-bold text-center">Your Donation Requests</h1>
 
-      <div className="mt-5 flex justify-end">
+      <div className="mt-5 flex justify-end px-5">
         <select className="select select-error w-full max-w-[150px]">
           <option disabled selected>
             Select

@@ -11,6 +11,7 @@ import DashRoot from "../Layout/DashRoot";
 import DashboardHome from "../Pages/DashBoardHome/DashboardHome";
 import DonorDash from "../Pages/DonorDash/DashBoard/DonorDash";
 import DonorRequest from "../Pages/DonorDash/DonationRequest/DonorRequest";
+import CreateDonation from "../Pages/DonorDash/CreateDonation/CreateDonation";
 
 const Router = createBrowserRouter([
   {
@@ -70,6 +71,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DonorRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/createRequest",
+        element: (
+          <PrivateRoute>
+            <CreateDonation />
           </PrivateRoute>
         ),
       },

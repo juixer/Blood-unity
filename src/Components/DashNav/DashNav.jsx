@@ -49,7 +49,7 @@ const DashNav = () => {
             <NavLink to={'/dashboard/donationRequest'}>Donation Request</NavLink>
           </li>
           <li>
-            <NavLink to={"/dashboard/dashboard"}>Create Donation</NavLink>
+            <NavLink to={"/dashboard/createRequest"}>Create Donation</NavLink>
           </li>
         </>
       )}
