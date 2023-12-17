@@ -1,14 +1,23 @@
 import { FaEye, FaPencil, FaTrashCan } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const DonorDash = () => {
+const DonorRequest = () => {
   return (
-    <div className="mt-10 max-w-screen-2xl mx-auto">
-      <h1 className="text-5xl font-bold text-center">
-        Your Recent Donation Request
-      </h1>
+    <div className="mt-10">
+      <h1 className="text-5xl font-bold text-center">Your Donation Requests</h1>
 
-      {/* TABLE */}
+      <div className="mt-5 flex justify-end">
+        <select className="select select-error w-full max-w-[150px]">
+          <option disabled selected>
+            Select
+          </option>
+          <option>All</option>
+          <option>Pending</option>
+          <option>Inprogress</option>
+          <option>Done</option>
+          <option>Canceled</option>
+        </select>
+      </div>
 
       <div className="overflow-x-auto mt-5">
         <table className="table">
@@ -49,23 +58,19 @@ const DonorDash = () => {
                 </button>
               </td>
               <td>
-               <Link to={'/details'}> <button className="btn glass bg-cyan-600 btn-sm hover:bg-cyan-800 text-white">
-                  <FaEye />
-                </button></Link>
+                <Link to={"/details"}>
+                  {" "}
+                  <button className="btn glass bg-cyan-600 btn-sm hover:bg-cyan-800 text-white">
+                    <FaEye />
+                  </button>
+                </Link>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center items-center my-5">
-        <Link to={'/dashboard/donationRequest'}>
-          <button className="uppercase btn glass bg-red-500 text-white hover:bg-red-800">
-            View all my request
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };
 
-export default DonorDash;
+export default DonorRequest;
