@@ -12,7 +12,7 @@ const RequestInfo = () => {
           className="hero rounded-xl"
           style={{
             backgroundImage:
-              "url(https://i.pinimg.com/originals/42/40/d8/4240d895dc088c367c3a06cbe5669795.gif)",
+              "url(https://i.ibb.co/PQt8Jx0/infoGIf.gif)",
           }}
         >
           <div className="hero-overlay bg-opacity-80 rounded-xl"></div>
