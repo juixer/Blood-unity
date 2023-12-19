@@ -12,10 +12,10 @@ const RequestInfo = () => {
           className="hero rounded-xl"
           style={{
             backgroundImage:
-              "url(https://i.ibb.co/4dM53tw/details.gif)",
+              "url(https://i.pinimg.com/originals/42/40/d8/4240d895dc088c367c3a06cbe5669795.gif)",
           }}
         >
-          <div className="hero-overlay bg-opacity-90 rounded-xl"></div>
+          <div className="hero-overlay bg-opacity-80 rounded-xl"></div>
           <div className="hero-content text-center text-neutral-content">
             <div className="max-w-3xl">
               <div className="space-y-3">
