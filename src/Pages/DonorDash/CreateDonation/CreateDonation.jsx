@@ -6,10 +6,13 @@ import Select from "react-select";
 import { useForm } from "react-hook-form";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const CreateDonation = () => {
   const [bloodType, setBloodType] = useState("");
   const [district, setDistrict] = useState("");
   const [isCLicked, setIsClicked] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleBloodType = (selectedOption) => {
     setBloodType(selectedOption.value);
@@ -109,8 +112,8 @@ const CreateDonation = () => {
     });
 
     const donation = {
-      requster_name: user.displayName,
-      requster_email: user.email,
+      requester_name: user.displayName,
+      requester_email: user.email,
       recipient_name: data.recipient_name,
       bloodType,
       district,
@@ -119,7 +122,7 @@ const CreateDonation = () => {
       donation_data: data.donation_data,
       donation_time: formattedTimeString,
       message: data.message,
-      donation_status: 'pendings',
+      donation_status: 'pending',
     };
     console.log(donation);
     axiosPublic.post("/donations", donation).then((res) => {
@@ -133,6 +136,7 @@ const CreateDonation = () => {
           timer: 1500,
         });
         setIsClicked(false);
+        navigate(-1)
       }
     });
   };

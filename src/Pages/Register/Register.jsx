@@ -160,6 +160,7 @@ const Register = () => {
                 });
                 setClicked(false)
                 navigate('/')
+                location.reload()
               })
               .catch((err) => {
                 Swal.fire({

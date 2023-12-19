@@ -28,8 +28,9 @@ const Router = createBrowserRouter([
         element: <DonationRequest />,
       },
       {
-        path: "/details",
+        path: "/details/:id",
         element: <RequestInfo />,
+        loader: ({ params}) => fetch (`http://localhost:5000/donation/${params.id}`)
       },
       {
         path: "/login",

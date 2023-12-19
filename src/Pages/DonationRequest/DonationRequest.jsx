@@ -1,13 +1,11 @@
-import axios from "axios";
 import Container from "../../Shared/COntainer/Container";
 import Select from "react-select";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import useDonationReq from "../../Hooks/useDonationRequest/useDonationReq";
+import { PropagateLoader } from "react-spinners";
+
 const DonationRequest = () => {
-  const [reqs, setReqs] = useState([]);
-  axios.get("fakeReq.json").then((res) => {
-    setReqs(res.data);
-  });
+  const { isPending, error, donations } = useDonationReq();
   const districts = [
     { value: "Comilla", label: "Comilla" },
     { value: "Feni", label: "Feni" },
@@ -84,6 +82,17 @@ const DonationRequest = () => {
     { value: "O+", label: "O+" },
     { value: "O-", label: "O-" },
   ];
+
+  if (isPending) {
+    return(
+      <div className="flex justify-center items-center py-52">
+      <PropagateLoader color="#ff0004" />
+    </div>
+    )
+  }
+  if (error) {
+    return console.log(error.message);
+  }
   return (
     <div className="my-10">
       <Container>
@@ -103,7 +112,7 @@ const DonationRequest = () => {
               </button>
             </form>
           </div>
-          <div className=" max-w-5xl mx-auto w-full lg:w-3/4 shadow-xl">
+          <div className=" max-w-5xl mx-auto w-full lg:w-3/4 shadow-2xl shadow-red-300 rounded-xl">
             <h1 className="text-5xl font-bold text-center mb-5">
               Donation Requests
             </h1>
@@ -124,18 +133,18 @@ const DonationRequest = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {reqs.map((req, i) => {
+                  {donations.map((donation, i) => {
                     return (
-                      <tr key={req.id} className="hover">
+                      <tr key={donation._id} className="hover">
                         <th>{i + 1}</th>
-                        <td>{req.requesterName}</td>
-                        <td>{req.type}</td>
-                        <td>{req.location}</td>
-                        <td>{req.location}</td>
-                        <td>{req.date}</td>
-                        <td>{req.time}</td>
+                        <td>{donation.requester_name}</td>
+                        <td>{donation.bloodType}</td>
+                        <td>{donation.district}</td>
+                        <td>{donation.full_address}</td>
+                        <td>{donation.donation_data}</td>
+                        <td>{donation.donation_time}</td>
                         <td>
-                          <Link to={'/details'}>
+                          <Link to={`/details/${donation._id}`}>
                             <button className="btn bg-sky-600 text-white hover:bg-sky-800 glass">
                               View Details
                             </button>
