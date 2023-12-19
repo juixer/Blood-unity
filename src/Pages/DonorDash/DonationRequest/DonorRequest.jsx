@@ -7,8 +7,8 @@ const DonorRequest = () => {
       <h1 className="text-5xl font-bold text-center">Your Donation Requests</h1>
 
       <div className="mt-5 flex justify-end px-5">
-        <select className="select select-error w-full max-w-[150px]">
-          <option disabled selected>
+        <select defaultValue={'Select'} className="select select-error w-full max-w-[150px]">
+          <option disabled >
             Select
           </option>
           <option>All</option>
