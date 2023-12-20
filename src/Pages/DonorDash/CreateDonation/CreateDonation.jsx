@@ -119,7 +119,7 @@ const CreateDonation = () => {
       district,
       hospital_name: data.hospital_name,
       full_address: data.full_address,
-      donation_data: data.donation_data,
+      donation_date: data.donation_data,
       donation_time: formattedTimeString,
       message: data.message,
       donation_status: 'pending',
