@@ -45,7 +45,7 @@ const DonorDash = () => {
       if (result.isConfirmed) {
         axiosPublic.delete(`/donation/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your Donation has been deleted.",
@@ -96,9 +96,11 @@ const DonorDash = () => {
                   <td></td>
                   <td></td>
                   <td>
-                    <button className="btn glass bg-emerald-600 btn-sm hover:bg-emerald-800 text-white">
-                      <FaPencil />
-                    </button>
+                    <Link to={`/dashboard/updateDonation/${donation._id}`}>
+                      <button className="btn glass bg-emerald-600 btn-sm hover:bg-emerald-800 text-white">
+                        <FaPencil />
+                      </button>
+                    </Link>
                   </td>
                   <td>
                     <button

@@ -12,6 +12,7 @@ import DashboardHome from "../Pages/DashBoardHome/DashboardHome";
 import DonorDash from "../Pages/DonorDash/DashBoard/DonorDash";
 import DonorRequest from "../Pages/DonorDash/DonationRequest/DonorRequest";
 import CreateDonation from "../Pages/DonorDash/CreateDonation/CreateDonation";
+import UpdateDonation from "../Pages/DonorDash/UpdateDonation/UpdateDonation";
 
 const Router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ const Router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <RequestInfo />,
-        loader: ({ params}) => fetch (`http://localhost:5000/donation/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/donation/${params.id}`),
       },
       {
         path: "/login",
@@ -82,6 +84,15 @@ const Router = createBrowserRouter([
             <CreateDonation />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/updateDonation/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateDonation />
+          </PrivateRoute>
+        ),
+        loader: ({params}) => fetch(`http://localhost:5000/donation/${params.id}`),
       },
     ],
   },

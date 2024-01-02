@@ -1,28 +1,12 @@
-import Lottie from "lottie-react";
 import donationAni from "../../../assets/donationAni.json";
-import useAuth from "../../../Hooks/useAuth/useAuth";
-import { useState } from "react";
+import Lottie from "lottie-react";
 import Select from "react-select";
-import { useForm } from "react-hook-form";
-import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-const CreateDonation = () => {
-  const [bloodType, setBloodType] = useState("");
-  const [district, setDistrict] = useState("");
-  const [isCLicked, setIsClicked] = useState(false);
+import { useLoaderData } from "react-router-dom";
+const UpdateDonation = () => {
+  const updateDonationInfo = useLoaderData();
+  console.log(updateDonationInfo);
 
-  const navigate = useNavigate()
 
-  const handleBloodType = (selectedOption) => {
-    setBloodType(selectedOption.value);
-  };
-
-  const handleDistrict = (selectedOption) => {
-    setDistrict(selectedOption.value);
-  };
-
-  const { user } = useAuth();
 
   const districts = [
     { value: "Comilla", label: "Comilla" },
@@ -101,88 +85,17 @@ const CreateDonation = () => {
     { value: "O-", label: "O-" },
   ];
 
-  // form
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    const formattedTime = new Date(`1970-01-01T${data.donation_time}`);
-    const formattedTimeString = formattedTime.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-    const donation = {
-      requester_name: user.displayName,
-      requester_email: user.email,
-      recipient_name: data.recipient_name,
-      bloodType,
-      district,
-      hospital_name: data.hospital_name,
-      full_address: data.full_address,
-      donation_date: data.donation_data,
-      donation_time: formattedTimeString,
-      donation_time_format: data.donation_time,
-      message: data.message,
-      donation_status: 'pending',
-    };
-    console.log(donation);
-    axiosPublic.post("/donations", donation).then((res) => {
-      if (res.data.insertedId) {
-        setIsClicked(true);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Donation Request Created Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setIsClicked(false);
-        navigate('/dashboard/donorDashboard')
-      }
-    });
-  };
-
   return (
     <div className="mt-10">
       <h1 className="text-5xl text-center font-bold">
-        Create Blood Donation Request
+        Update Blood Donation Request
       </h1>
-      <div className="flex flex-col mt-5 md:flex-row gap-5 items-center justify-center p-5 shadow-2xl shadow-red-300 rounded-xl">
+      <div className="flex flex-col mt-5 md:flex-row-reverse gap-5 items-center justify-center p-5 shadow-2xl shadow-red-300 rounded-xl">
         <div className="w-full">
           <Lottie animationData={donationAni} loop={true} />
         </div>
         <div className="w-full">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            <div className="space-y-2">
-              <h4 className="font-bold">
-                Your Name<span className="font-bold text-red-500">*</span>
-              </h4>
-              <input
-                type="text"
-                placeholder="Type here"
-                defaultValue={user.displayName}
-                readOnly
-                disabled
-                {...register("requster_name")}
-                className="input input-bordered w-full bg-gray-200"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="font-bold">
-                Your Email<span className="font-bold text-red-500">*</span>
-              </h4>
-              <input
-                type="text"
-                placeholder="Type here"
-                defaultValue={user.email}
-                {...register("requster_email")}
-                readOnly
-                disabled
-                className="input input-bordered w-full bg-gray-200"
-              />
-            </div>
-
+          <form className="space-y-5">
             <div className="space-y-2">
               <h4 className="font-bold">
                 Recipient Name<span className="font-bold text-red-500">*</span>
@@ -191,7 +104,8 @@ const CreateDonation = () => {
                 type="text"
                 required
                 placeholder="Type here"
-                {...register("recipient_name")}
+                name="recipient_name"
+                defaultValue={updateDonationInfo.recipient_name}
                 className="input input-bordered  w-full "
               />
             </div>
@@ -203,9 +117,12 @@ const CreateDonation = () => {
                 </h4>
                 <Select
                   required
-                  onChange={handleBloodType}
+                  //   onChange={handleBloodType}
                   options={bloodTypes}
                 />
+                <h1 className="font-bold">
+                  Selected: {updateDonationInfo.bloodType}
+                </h1>
               </div>
 
               <div className="space-y-2 w-full">
@@ -214,9 +131,12 @@ const CreateDonation = () => {
                 </h4>
                 <Select
                   required
-                  onChange={handleDistrict}
+                  //   onChange={handleDistrict}
                   options={districts}
                 />
+                <h1 className="font-bold">
+                  Selected: {updateDonationInfo.district}
+                </h1>
               </div>
             </div>
 
@@ -228,7 +148,8 @@ const CreateDonation = () => {
                 type="text"
                 required
                 placeholder="Type here"
-                {...register("hospital_name")}
+                name="hospital_name"
+                defaultValue={updateDonationInfo.hospital_name}
                 className="input input-bordered  w-full "
               />
             </div>
@@ -240,7 +161,8 @@ const CreateDonation = () => {
               <input
                 type="text"
                 required
-                {...register("full_address")}
+                name="full_address"
+                defaultValue={updateDonationInfo.full_address}
                 placeholder="Type here"
                 className="input input-bordered  w-full "
               />
@@ -254,7 +176,8 @@ const CreateDonation = () => {
                 <input
                   type="date"
                   required
-                  {...register("donation_data")}
+                  name="donation_date"
+                  defaultValue={updateDonationInfo.donation_date}
                   placeholder="Type here"
                   className="input input-bordered  w-full "
                 />
@@ -267,7 +190,8 @@ const CreateDonation = () => {
                 <input
                   type="time"
                   required
-                  {...register("donation_time")}
+                  name="donation_time"
+                  defaultValue={updateDonationInfo.donation_time_format}
                   className="input input-bordered  w-full "
                 />
               </div>
@@ -278,12 +202,13 @@ const CreateDonation = () => {
               <textarea
                 className="textarea textarea-bordered w-full h-36"
                 placeholder="Type your message"
-                {...register("message")}
+                name="message"
+                defaultValue={updateDonationInfo.message}
               ></textarea>
             </div>
 
             <button
-              disabled={isCLicked}
+              //   disabled={isCLicked}
               className="btn glass bg-red-600 hover:bg-red-800 text-white w-full"
             >
               Create
@@ -295,4 +220,4 @@ const CreateDonation = () => {
   );
 };
 
-export default CreateDonation;
+export default UpdateDonation;
