@@ -3,10 +3,11 @@ import Lottie from "lottie-react";
 import Select from "react-select";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
+import Swal from "sweetalert2";
 const UpdateDonation = () => {
   const [bloodType, setBloodType] = useState("");
   const [district, setDistrict] = useState("");
-  const [isCLicked, setIsClicked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -113,11 +114,26 @@ const UpdateDonation = () => {
       full_address: form.full_address.value,
       donation_date: form.donation_date.value,
       donation_time: formattedTimeString,
-      donation_time_format:form.donation_time.value,
-      message: form.message.value
+      donation_time_format: form.donation_time.value,
+      message: form.message.value,
     };
 
     console.log(updateDonation);
+
+    axiosPublic
+      .patch(`/updateDonation/${updateDonationInfo._id}`, updateDonation)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your Donation has been updated",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/donorDashboard");
+        }
+      });
   };
 
   return (
@@ -229,10 +245,7 @@ const UpdateDonation = () => {
               ></textarea>
             </div>
 
-            <button
-              disabled={isCLicked}
-              className="btn glass bg-red-600 hover:bg-red-800 text-white w-full"
-            >
+            <button className="btn glass bg-red-600 hover:bg-red-800 text-white w-full">
               Create
             </button>
           </form>
