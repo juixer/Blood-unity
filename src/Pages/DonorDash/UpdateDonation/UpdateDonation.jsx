@@ -1,12 +1,24 @@
 import donationAni from "../../../assets/donationAni.json";
 import Lottie from "lottie-react";
 import Select from "react-select";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useState } from "react";
 const UpdateDonation = () => {
+  const [bloodType, setBloodType] = useState("");
+  const [district, setDistrict] = useState("");
+  const [isCLicked, setIsClicked] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleBloodType = (selectedOption) => {
+    setBloodType(selectedOption.value);
+  };
+
+  const handleDistrict = (selectedOption) => {
+    setDistrict(selectedOption.value);
+  };
+
   const updateDonationInfo = useLoaderData();
-  console.log(updateDonationInfo);
-
-
 
   const districts = [
     { value: "Comilla", label: "Comilla" },
@@ -85,6 +97,29 @@ const UpdateDonation = () => {
     { value: "O-", label: "O-" },
   ];
 
+  const handleFormData = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formattedTime = new Date(`1970-01-01T${form.donation_time.value}`);
+    const formattedTimeString = formattedTime.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const updateDonation = {
+      recipient_name: form.recipient_name.value,
+      bloodType: bloodType,
+      district: district,
+      hospital_name: form.hospital_name.value,
+      full_address: form.full_address.value,
+      donation_date: form.donation_date.value,
+      donation_time: formattedTimeString,
+      donation_time_format:form.donation_time.value,
+      message: form.message.value
+    };
+
+    console.log(updateDonation);
+  };
+
   return (
     <div className="mt-10">
       <h1 className="text-5xl text-center font-bold">
@@ -95,14 +130,13 @@ const UpdateDonation = () => {
           <Lottie animationData={donationAni} loop={true} />
         </div>
         <div className="w-full">
-          <form className="space-y-5">
+          <form onSubmit={handleFormData} className="space-y-5">
             <div className="space-y-2">
               <h4 className="font-bold">
                 Recipient Name<span className="font-bold text-red-500">*</span>
               </h4>
               <input
                 type="text"
-                required
                 placeholder="Type here"
                 name="recipient_name"
                 defaultValue={updateDonationInfo.recipient_name}
@@ -115,11 +149,7 @@ const UpdateDonation = () => {
                 <h4 className="font-semibold">
                   Blood Type<span className="font-bold text-red-500">*</span>
                 </h4>
-                <Select
-                  required
-                  //   onChange={handleBloodType}
-                  options={bloodTypes}
-                />
+                <Select onChange={handleBloodType} options={bloodTypes} />
                 <h1 className="font-bold">
                   Selected: {updateDonationInfo.bloodType}
                 </h1>
@@ -129,11 +159,7 @@ const UpdateDonation = () => {
                 <h4 className="font-semibold">
                   District<span className="font-bold text-red-500">*</span>
                 </h4>
-                <Select
-                  required
-                  //   onChange={handleDistrict}
-                  options={districts}
-                />
+                <Select onChange={handleDistrict} options={districts} />
                 <h1 className="font-bold">
                   Selected: {updateDonationInfo.district}
                 </h1>
@@ -146,7 +172,6 @@ const UpdateDonation = () => {
               </h4>
               <input
                 type="text"
-                required
                 placeholder="Type here"
                 name="hospital_name"
                 defaultValue={updateDonationInfo.hospital_name}
@@ -160,7 +185,6 @@ const UpdateDonation = () => {
               </h4>
               <input
                 type="text"
-                required
                 name="full_address"
                 defaultValue={updateDonationInfo.full_address}
                 placeholder="Type here"
@@ -175,7 +199,6 @@ const UpdateDonation = () => {
                 </h4>
                 <input
                   type="date"
-                  required
                   name="donation_date"
                   defaultValue={updateDonationInfo.donation_date}
                   placeholder="Type here"
@@ -189,7 +212,6 @@ const UpdateDonation = () => {
                 </h4>
                 <input
                   type="time"
-                  required
                   name="donation_time"
                   defaultValue={updateDonationInfo.donation_time_format}
                   className="input input-bordered  w-full "
@@ -208,7 +230,7 @@ const UpdateDonation = () => {
             </div>
 
             <button
-              //   disabled={isCLicked}
+              disabled={isCLicked}
               className="btn glass bg-red-600 hover:bg-red-800 text-white w-full"
             >
               Create
